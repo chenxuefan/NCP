@@ -39,7 +39,7 @@ def make_chart_echart(csvName,chartPath,chartName,titleName):  # pyechart
             # 全局配置项
             .set_global_opts(
                 # 表格标题
-                title_opts={"text": titleName+"NCP疫情趋势图", "subtext": "{}".format("@author：Billie")},  # 图表标题
+                title_opts={"text": titleName+"NCP疫情趋势图"},  # 图表标题 , "subtext": "{}".format("@author：Billie")
                 # xlabel写法1
                 # xaxis_opts={"name":"日期"},
                 # xlabel写法2
@@ -71,7 +71,7 @@ def make_chart_echart(csvName,chartPath,chartName,titleName):  # pyechart
     chart_Line.render(chartPath + chartName + ".html")
 
     # 保存为png
-    # make_snapshot(snapshot,chart_Line.render(chartPath+chartName+".html"), chartPath+chartName+".png")
+    make_snapshot(snapshot,chart_Line.render(chartPath+chartName+".html"), chartPath+chartName+".png")
 
     print('已制作echarts图表！')
 
