@@ -73,7 +73,8 @@ def mainWork():
     # 制作图表
     make_chart_echart(csvName='./tables/global.csv',chartName='global',chartPath='./',titleName='全球')
 
-schedule.every().day.at('00:01').do(mainWork)
-while True:
-        schedule.run_pending()
-        time.sleep(1)
+mainWork()
+# schedule.every().day.at('00:01').do(mainWork)
+# while True:
+#         schedule.run_pending()
+#         time.sleep(1)
