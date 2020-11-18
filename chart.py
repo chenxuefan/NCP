@@ -11,7 +11,8 @@ from pyecharts import options as opts
 from example.commons import Faker#pip install pyecharts==1.0
 from pyecharts.render import make_snapshot
 from snapshot_selenium import snapshot
-def make_chart_echart(csvName,chartPath,chartName,titleName):  # pyechart
+def make_chart_echart(csvName,chartPath,chartName,titleName=''):  # pyechart
+    print('正在制作echarts图表...')
     (time, confirm, heal, dead, add) = np.loadtxt(csvName,
                                                     # encoding="",
                                                     skiprows=1,
@@ -39,7 +40,7 @@ def make_chart_echart(csvName,chartPath,chartName,titleName):  # pyechart
             # 全局配置项
             .set_global_opts(
                 # 表格标题
-                title_opts={"text": titleName+"NCP疫情趋势图"},  # 图表标题 , "subtext": "{}".format("@author：Billie")
+                title_opts={"text": titleName+"疫情趋势图"},  # 图表标题 , "subtext": "{}".format("@author：Billie")
                 # xlabel写法1
                 # xaxis_opts={"name":"日期"},
                 # xlabel写法2
