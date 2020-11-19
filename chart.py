@@ -13,12 +13,12 @@ from pyecharts.render import make_snapshot
 from snapshot_selenium import snapshot
 def make_chart_echart(csvName,chartPath,chartName,titleName=''):  # pyechart
     print('正在制作echarts图表...')
-    (time, confirm, heal, dead, add) = np.loadtxt(csvName,
+    (time, confirm, heal, dead) = np.loadtxt(csvName,
                                                     # encoding="",
                                                     skiprows=1,
                                                     dtype='str',
                                                     delimiter=',',
-                                                    usecols=(0, 1, 2, 3, 4),
+                                                    usecols=(0, 1, 2, 3),
                                                     unpack=True)
     # 折线图表
     chart_Line = (
@@ -31,11 +31,11 @@ def make_chart_echart(csvName,chartPath,chartName,titleName=''):  # pyechart
                        linestyle_opts=opts.LineStyleOpts(width=2),  # 线条样式
                        is_smooth=True,  # 平滑曲线
                        areastyle_opts=opts.AreaStyleOpts(opacity=0.1),  # 区域渲染
-                       label_opts=opts.LabelOpts(is_show=False)  # 显示具体数据True
+                       label_opts=opts.LabelOpts(is_show=True)  # 显示具体数据True
             )
             .add_yaxis("heal", list(heal), label_opts=opts.LabelOpts(is_show=False))
             .add_yaxis("dead", list(dead), label_opts=opts.LabelOpts(is_show=False))
-            .add_yaxis("newAddConfirm", list(add), label_opts=opts.LabelOpts(is_show=False))  # True
+            # .add_yaxis("newAddConfirm", list(add), label_opts=opts.LabelOpts(is_show=False))  # True
 
             # 全局配置项
             .set_global_opts(

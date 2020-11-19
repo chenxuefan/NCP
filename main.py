@@ -7,6 +7,7 @@
 from abroad import AbroadEpidemic
 from china import ChinaEpidemic
 from chart import make_chart_echart
+
 import time
 import numpy as np
 import pandas as pd
@@ -19,13 +20,13 @@ def combineAbroadAndChina():
                              skiprows=1,
                              dtype='str',
                              delimiter=',',
-                             usecols=(0, 1, 2, 3, 4),
+                             usecols=(0, 1, 2, 3),
                              unpack=True)
     dataOfAbroad = np.loadtxt('./tables/abroad.csv',
                               skiprows=1,
                               dtype='str',
                               delimiter=',',
-                              usecols=(0, 1, 2, 3, 4),
+                              usecols=(0, 1, 2, 3),
                               unpack=True
                               )
 
@@ -35,29 +36,30 @@ def combineAbroadAndChina():
     # 定义dataframe的三个变量
     data = []
     index = dataOfChina[0]
-    columns = ['confirm', 'heal', 'dead', 'newAddConfirm']
+    columns = ['confirm', 'heal', 'dead']
+
 
     for i,day1 in enumerate(dataOfChina[0]):
-        if i < 18:
+        if i < 15:
+            # print(day1)
             data.append([
                 int(dataOfChina[1][i]),
                 int(dataOfChina[2][i]),
                 int(dataOfChina[3][i]),
-                int(dataOfChina[4][i])
+                # int(dataOfChina[4][i])
             ])
-        for day2 in dataOfAbroad[0]:
-            try:
-                if day1 == day2:
-                    data.append([
-                        int(dataOfChina[1][i])+int(dataOfAbroad[1][i]),
-                        int(dataOfChina[2][i])+int(dataOfAbroad[2][i]),
-                        int(dataOfChina[3][i])+int(dataOfAbroad[3][i]),
-                        int(dataOfChina[4][i])+int(dataOfAbroad[4][i]),
-                    ])
-                    # print(data)
-            except:pass
 
-    print(data)
+        else:
+            try:
+                data.append([
+                    int(dataOfChina[1][i]) + int(dataOfAbroad[1][i-15]),
+                    int(dataOfChina[2][i]) + int(dataOfAbroad[2][i-15]),
+                    int(dataOfChina[3][i]) + int(dataOfAbroad[3][i-15]),
+                    # int(dataOfChina[4][i])+int(dataOfAbroad[4][i]),
+                ])
+            except Exception as e:print(e)
+
+
     print(len(index),len(data),len(columns))
     df = pd.DataFrame(index=index,data=data,columns=columns)
     df.to_csv('./tables/{}.csv'.format('global'),encoding='gbk')

@@ -56,10 +56,10 @@ class AbroadEpidemic:
                 [date['all']['confirm'],
                  date['all']['heal'],
                  date['all']['dead'],
-                 date['all']['newAddConfirm']]
+                 ] #date['all']['newAddConfirm']
         print(self.FAutoGlobalDailyList)
         self.save_to_csv(index=self.FAutoGlobalDailyList.keys(),
-                         columns=['confirm','heal','dead','newAddConfirm'],
+                         columns=['confirm','heal','dead'],
                          data=self.FAutoGlobalDailyList.values(),
                          filename='abroad')
 
