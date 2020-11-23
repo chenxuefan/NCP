@@ -12,6 +12,7 @@ from pprint import pprint
 import numpy as np
 import pandas as pd
 from chart import *
+
 import matplotlib.pyplot as plt
 
 '''
@@ -33,6 +34,8 @@ class AbroadEpidemic:
         self.FAutoGlobalDailyList=dict()           #存储每日海外疫情数据的字典
         self.FAutoCountryConfirmAdd=dict()         #存储今日各国新增疫情数据的字典
         self.lastUpdateTime=''
+
+        self.dailyD = []
 
     # 保存数据至csv文件
     def save_to_csv(self,index,columns,data,filename):
@@ -57,11 +60,13 @@ class AbroadEpidemic:
                  date['all']['heal'],
                  date['all']['dead'],
                  ] #date['all']['newAddConfirm']
-        print(self.FAutoGlobalDailyList)
+            self.dailyD.append([date['date'],date['all']['confirm'],date['all']['heal'],date['all']['dead']])
+        # print(self.FAutoGlobalDailyList)
         self.save_to_csv(index=self.FAutoGlobalDailyList.keys(),
                          columns=['confirm','heal','dead'],
                          data=self.FAutoGlobalDailyList.values(),
                          filename='abroad')
+
 
     # 各个大洲的每日数据
     def spider_Continent(self):

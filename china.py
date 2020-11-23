@@ -15,12 +15,14 @@ from pprint import pprint
 import numpy as np
 import pandas as pd
 
+
 class ChinaEpidemic:
     def __init__(self):
         self.base_url='https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/list?modules=chinaDayList'
         self.headers = {
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36'
         }
+        self.dailyD = []
 
 
     def spider_Daily(self):
@@ -44,7 +46,7 @@ class ChinaEpidemic:
                 day['heal'],
                 day['dead']
             ])
-        #
-        df = pd.DataFrame(index=index,data=data,columns=columns)
-        print(df)
-        df.to_csv('./tables/{}.csv'.format('china'),encoding='gbk')
+            self.dailyD.append([day['date'],day['confirm'],day['heal'],day['dead']])
+
+        self.df = pd.DataFrame(index=index,data=data,columns=columns)
+        self.df.to_csv('./tables/{}.csv'.format('china'),encoding='gbk')

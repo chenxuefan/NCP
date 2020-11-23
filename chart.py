@@ -11,7 +11,7 @@ from pyecharts import options as opts
 from example.commons import Faker#pip install pyecharts==1.0
 from pyecharts.render import make_snapshot
 from snapshot_selenium import snapshot
-def make_chart_echart(csvName,chartPath,chartName,titleName=''):  # pyechart
+def make_chart_echart(csvName,chartName,titleName=''):  # pyechart
     print('正在制作echarts图表...')
     (time, confirm, heal, dead) = np.loadtxt(csvName,
                                                     # encoding="",
@@ -69,10 +69,10 @@ def make_chart_echart(csvName,chartPath,chartName,titleName=''):  # pyechart
     chart_Line.width = '100'
 
     # 保存为html
-    chart_Line.render(chartPath + chartName + ".html")
+    # chart_Line.render(chartPath + chartName + ".html")
 
     # 保存为png
-    make_snapshot(snapshot,chart_Line.render(chartPath+chartName+".html"), chartPath+chartName+".png")
+    make_snapshot(snapshot,chart_Line.render("./html/"+chartName+".html"), "./charts/"+chartName+".png")
 
     print('已制作echarts图表！')
 
@@ -104,7 +104,9 @@ def make_chart_plt(csvName,chartPath,chartName):
     plt.plot(date,confirm_add, linewidth=1, label="confirm_add")
     plt.grid()
     # x轴标注
-    plt.xticks(range(0,len(date),10))#以10天为间隔显示
+    # plt.xticks(range(0,len(date),10))#以10天为间隔显示
+    plt.xticks(['1.31', '2.29', '3.31', '4.30', '5.31', '6.30', '7.31', '8.31', '9.30', '10.31' ,'11.30','12.31'],
+               ['Jan', 'Feb', 'Mar', 'Apr', 'may', 'June', 'July', 'Aug', 'Sept', 'Oct','Nov','Dec'])
     #----------很牛逼的一段算法----------
     if   int(confirm[-1])<10000: ticks=range(0,int(confirm[-1]),1000) #标注点的y坐标，以每 k为间隔
     elif int(confirm[-1])<50000: ticks=range(0,int(confirm[-1]),5000) #以每 k为间隔
@@ -117,7 +119,7 @@ def make_chart_plt(csvName,chartPath,chartName):
     #---------------------------------
     # y轴标注
     plt.yticks(ticks,labels)
-    plt.annotate(s=int(confirm[-1]),xy=(date[-1], confirm[-1]),xytext=(-20, 2), textcoords='offset points')
+    plt.annotate(s=int(confirm[-1]),xy=(date[-1], confirm[-1]),xytext=(-20, 2), textcoords='offset points') # 标注最后一天的数据
     # plt.text(date[-1], confirm[-1], int(confirm[-1]), ha='center', va='bottom', fontsize=10, alpha=1, color='mediumvioletred')#标注最后一项的数据
     # plt.xlabel("日期",fontsize="7")
     # plt.ylabel("人数",fontsize="7")
