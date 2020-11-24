@@ -1,1 +1,0 @@
-([('main', '/Users/billie/Desktop/NCP/dist/main', 'EXECUTABLE')],)
