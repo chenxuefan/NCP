@@ -27,7 +27,7 @@ class GlobalEpidemic():
                                   )
 
         print(dataOfAbroad)
-        print(dataOfChina)
+        print(dataOfChina[0][315])
 
         # 定义dataframe的三个变量
         data = []
@@ -35,6 +35,7 @@ class GlobalEpidemic():
         columns = ['confirm', 'heal', 'dead']
 
         for i, day1 in enumerate(dataOfChina[0]):
+            # print(i,day1)
             if i < 15:
                 data.append([
                     int(dataOfChina[1][i]),
@@ -42,6 +43,7 @@ class GlobalEpidemic():
                     int(dataOfChina[3][i]),
                     # int(dataOfChina[4][i])
                 ])
+                # print(len(data),day1)
                 self.dailyD.append([
                     dataOfChina[0][i],
                     dataOfChina[1][i],
@@ -54,8 +56,9 @@ class GlobalEpidemic():
                         int(dataOfChina[1][i]) + int(dataOfAbroad[1][i - 15]),
                         int(dataOfChina[2][i]) + int(dataOfAbroad[2][i - 15]),
                         int(dataOfChina[3][i]) + int(dataOfAbroad[3][i - 15]),
-                        # int(dataOfChina[4][i])+int(dataOfAbroad[4][i]),
+                        # int(dataOfChina[4][i]) + int(dataOfAbroad[4][i]),
                     ])
+
                     self.dailyD.append([
                         dataOfChina[0][i],
                         int(dataOfChina[1][i]) + int(dataOfAbroad[1][i - 15]),
@@ -64,7 +67,8 @@ class GlobalEpidemic():
                     ])
                 except Exception as e:
                     print(e)
-        print(data)
+
+        print(len(data),data)
         print(len(index), len(data), len(columns))
         df = pd.DataFrame(index=index, data=data, columns=columns)
         df.to_csv('./tables/{}.csv'.format('global'), encoding='gbk')

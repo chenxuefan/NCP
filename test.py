@@ -1,50 +1,44 @@
 # -*- coding: utf-8 -*-
 """
 @Author billie
-@Date 2020/11/21 11:33 下午
+@Date 2020/11/25 3:20 上午
 @Describe 
 """
-import os
-from PIL import Image
+# 导入，Qapplication，单行文本框，窗口
+from PyQt5.QtWidgets import QApplication, QLineEdit, QWidget
+# 导入文本校验器：整数校验器,浮点数校验器,正则校验器
+from PyQt5.QtGui import QIntValidator, QDoubleValidator, QRegExpValidator
+# 导入Qt正则模块
+from PyQt5.QtCore import QRegExp
+import sys
 
-def splitimage(src, rownum, colnum, dstpath):
-    img = Image.open(src)
-    w, h = img.size
-    if rownum <= h and colnum <= w:
-        print('Original image info: %sx%s, %s, %s' % (w, h, img.format, img.mode))
-        print('开始处理图片切割, 请稍候...')
 
-        s = os.path.split(src)
-        if dstpath == '':
-            dstpath = s[0]
-        fn = s[1].split('.')
-        basename = fn[0]
-        ext = fn[-1]
+class lineEditDemo(QWidget):
+    def __init__(self, parent=None):
+        super(lineEditDemo, self).__init__(parent)
+        self.setWindowTitle('QLineEdit例子')
+        self.resize(300, 300)
 
-        num = 0
-        rowheight = h // rownum
-        colwidth = w // colnum
-        for r in range(rownum):
-            for c in range(colnum):
-                box = (c * colwidth, r * rowheight, (c + 1) * colwidth, (r + 1) * rowheight)
-                img.crop(box).save(os.path.join(dstpath, basename + '_' + str(num) + '.' + ext), ext)
-                num = num + 1
+        int_validato = QIntValidator(50, 100, self)  # 实例化整型验证器，并设置范围为50-100
+        int_le = QLineEdit(self)  # 整型文本框
+        int_le.setValidator(int_validato)  # 设置验证
+        int_le.move(50, 10)
 
-        print('图片切割完毕，共生成 %s 张小图片。' % num)
-    else:
-        print('不合法的行列切割参数！')
+        # 实例化浮点型验证器，并设置范围为-100到100，并精确2位小数
+        float_validato = QDoubleValidator(-100, 100, 2, self)
+        float_le = QLineEdit(self)  # 浮点文本框
+        float_le.setValidator(float_validato)  # 设置验证
+        float_le.move(50, 50)
 
-src = input('请输入图片文件路径：')
-if os.path.isfile(src):
-    dstpath = input('请输入图片输出目录（不输入路径则表示使用源图片所在目录）：')
-    if (dstpath == '') or os.path.exists(dstpath):
-        row = int(input('请输入切割行数：'))
-        col = int(input('请输入切割列数：'))
-        if row > 0 and col > 0:
-            splitimage(src, row, col, dstpath)
-        else:
-            print('无效的行列切割参数！')
-    else:
-        print('图片输出目录 %s 不存在！' % dstpath)
-else:
-    print('图片文件 %s 不存在！' % src)
+        re = QRegExp('[a-zA-Z0-9]+$')  # 正则:只允许出现的大小写字母和数字
+        re_validato = QRegExpValidator(re, self)  # 实例化正则验证器
+        re_le = QLineEdit(self)  # 正则文本框
+        re_le.setValidator(re_validato)  # 设置验证
+        re_le.move(50, 90)
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    win = lineEditDemo()
+    win.show()
+    sys.exit(app.exec_())

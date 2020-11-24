@@ -78,7 +78,7 @@ def make_chart_echart(csvName,chartName,titleName=''):  # pyechart
 
 
 
-def make_chart_plt(csvName,chartPath,chartName):
+def make_chart_plt(csvName,chartName):
     # plt.rcParams['font.sans-serif'] = ['SimHei']  # windows 正常显示中文标签
     plt.rcParams["font.family"] = 'Arial Unicode MS'  # macos 正常显示中文标签
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
@@ -104,28 +104,33 @@ def make_chart_plt(csvName,chartPath,chartName):
     plt.plot(date,confirm_add, linewidth=1, label="confirm_add")
     plt.grid()
     # x轴标注
-    # plt.xticks(range(0,len(date),10))#以10天为间隔显示
-    plt.xticks(['1.31', '2.29', '3.31', '4.30', '5.31', '6.30', '7.31', '8.31', '9.30', '10.31' ,'11.30','12.31'],
-               ['Jan', 'Feb', 'Mar', 'Apr', 'may', 'June', 'July', 'Aug', 'Sept', 'Oct','Nov','Dec'])
+    plt.xticks(range(0,len(date),10))#以10天为间隔显示
+    months = {'1.01':'Jan','2.01':'Feb', '3.01':'Mar', '4.01':'Apr', '5.01':'May', '6.01':'June', '7.01':'July', '8.01':'Aug', '9.01':'Sept', '10.01':'Oct','11.01':'Nov','12.01':'Dec'}
+    x,val = [],[]
+    for month in months.keys():
+        if month in date:
+            x.append(month)
+            val.append(months[month])
+    plt.xticks(x,val)
     #----------很牛逼的一段算法----------
     if   int(confirm[-1])<10000: ticks=range(0,int(confirm[-1]),1000) #标注点的y坐标，以每 k为间隔
     elif int(confirm[-1])<50000: ticks=range(0,int(confirm[-1]),5000) #以每 k为间隔
     elif int(confirm[-1])<100000: ticks=range(0,int(confirm[-1]),20000) #以每20k为间隔
     elif int(confirm[-1])<200000: ticks = range(0, int(confirm[-1]), 50000)  #以每50k为间隔
     elif int(confirm[-1])<1000000: ticks = range(0, int(confirm[-1]), 200000)  #以每200k为间隔
-    else: ticks = range(0, int(confirm[-1]), 1000000)  #以每1000k为间隔
+    elif int(confirm[-1])<10000000: ticks = range(0, int(confirm[-1]), 1000000)  #以每1000k为间隔
+    else: ticks = range(0, int(confirm[-1]), 2000000)  #以每1000k为间隔
     labels=[str(int(i/1000))+'k' for i in ticks] #标注，以..k显示
     labels[0]=0 #插入第一项为0
     #---------------------------------
     # y轴标注
     plt.yticks(ticks,labels)
-    plt.annotate(s=int(confirm[-1]),xy=(date[-1], confirm[-1]),xytext=(-20, 2), textcoords='offset points') # 标注最后一天的数据
+    plt.annotate(text=int(confirm[-1]),xy=(date[-1], confirm[-1]),xytext=(-20, 2), textcoords='offset points') # 标注最后一天的数据
     # plt.text(date[-1], confirm[-1], int(confirm[-1]), ha='center', va='bottom', fontsize=10, alpha=1, color='mediumvioletred')#标注最后一项的数据
     # plt.xlabel("日期",fontsize="7")
     # plt.ylabel("人数",fontsize="7")
-    plt.suptitle(chartName+"NCP疫情趋势图",y=1)#图表大标题,y为标题位置的偏移距离
+    plt.suptitle(chartName+"疫情趋势图",y=1)#图表大标题,y为标题位置的偏移距离
     plt.title("@author:billie(数据来自腾讯)",loc='right', fontsize=8)#子图表标题
     plt.legend()  # 设置图例的前题是y指定了label
-    plt.savefig("{}{}.png".format(chartPath,chartName))
-    plt.show()
+    plt.savefig("./charts/{}.png".format(chartName),dpi=400,bbox_inches = 'tight')
     print('已制作plt图表!')

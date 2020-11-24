@@ -122,7 +122,9 @@ class AbroadEpidemic:
 
 
 
-
+# AbroadEpidemic().spider_Statis()
+# AbroadEpidemic().spider_ConfirmAdd()
+# AbroadEpidemic().spider_Continent()
 
 
 
