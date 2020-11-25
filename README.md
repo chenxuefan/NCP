@@ -20,7 +20,7 @@
 
 ​	数据是冷冰冰的，但是，借由数据，我们可以看到背后透露出来的国力雄厚、英雄气概，也只有亲身经历过这一场战役的我们，才深深懂得那一条逐渐归于直线的确诊曲线，来的有多么不容易。
 
-![chart_plt](https://github.com/chenxuefan/NCP/blob/master/charts/china.png)
+![chart_plt](https://billie-s-album.oss-cn-beijing.aliyuncs.com/img/chart_plt.png)
 
 ### 功能需求分析
 
