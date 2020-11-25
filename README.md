@@ -22,11 +22,21 @@
 
 ![chart_plt](https://billie-s-album.oss-cn-beijing.aliyuncs.com/img/chart_plt.png)
 
+本项目围绕疫情的几个关键特征（如确诊、治愈、死亡），绘制折线图，并在GUI图形页面进行交互与显示图表。
+
 ### 功能需求分析
 
 ### 技术需求分析
 
-### API需求分析
+### API需求分析（来源：腾讯）
+
+- 国内数据
+  - 国内全局 - `https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/list?modules=chinaDayList,chinaDayAddList,cityStatis,nowConfirmStatis,provinceCompare`
+  - 国内全局 - `https://view.inews.qq.com/g2/getOnsInfo?name=disease_other`
+  - 国内省份及城市 - `https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province={}&city={}&`
+- 海外数据
+  - 海外全局 - `https://api.inews.qq.com/newsqa/v1/automation/modules/list?modules=FAutoGlobalStatis,FAutoContinentStatis,FAutoGlobalDailyList,FAutoCountryConfirmAdd`
+  - 海外各国 - `https://api.inews.qq.com/newsqa/v1/automation/foreign/daily/list?country={}&`
 
 ### 技术栈
 
