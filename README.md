@@ -71,8 +71,8 @@
 
 在线图表（每日更新）
 
-- china - [https://download.billie52707.cn/NCP/global.html](https://download.billie52707.cn/NCP/global.html)
-- abroad - [https://download.billie52707.cn/NCP/global.html](https://download.billie52707.cn/NCP/global.html)
+- china - [https://download.billie52707.cn/NCP/china.html](https://download.billie52707.cn/NCP/china.html)
+- abroad - [https://download.billie52707.cn/NCP/abroad.html](https://download.billie52707.cn/NCP/abroad.html)
 - global - [https://download.billie52707.cn/NCP/global.html](https://download.billie52707.cn/NCP/global.html)
 
 项目详解 - [新冠疫情（NCP）的监测与趋势分析](https://billie52707.cn/posts/2020/11/ncp-readme/)
