@@ -4,15 +4,16 @@
 @Date 2020/11/18 12:17 上午
 @Describe
 - 获取国内疫情数据
-- api(腾讯)：https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/list?modules=chinaDayList,chinaDayAddList,cityStatis,nowConfirmStatis,provinceCompare
+- api(腾讯)：
+    - https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/list?modules=chinaDayList,chinaDayAddList,cityStatis,nowConfirmStatis,provinceCompare
     - {'nowSevere': 0, 'healRate': '0.0', 'noInfect': 0, 'importedCase': 0, 'deadRate': '2.4', 'date': '01.13', 'confirm': 41, 'suspect': 0, 'dead': 1, 'heal': 0, 'nowConfirm': 0}
-- api(丁香园)：https://file1.dxycdn.com/2020/1118/091/3894308898877218443-135.json
+    - https://view.inews.qq.com/g2/getOnsInfo?name=disease_other
+- api(丁香园)：
+    - https://file1.dxycdn.com/2020/1118/091/3894308898877218443-135.json
     - 太难了
 
 """
 import requests
-from pprint import pprint
-import numpy as np
 import pandas as pd
 
 

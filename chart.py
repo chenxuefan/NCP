@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pyecharts.charts import *
 from pyecharts import options as opts
-from example.commons import Faker#pip install pyecharts==1.0
+# from example.commons import Faker#pip install pyecharts==1.0
 from pyecharts.render import make_snapshot
 from snapshot_selenium import snapshot
 def make_chart_echart(csvName,chartName,titleName=''):  # pyechart

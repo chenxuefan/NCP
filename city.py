@@ -5,7 +5,6 @@
 @Describe 
 """
 import pandas as pd
-import numpy as np
 import requests
 
 
@@ -25,26 +24,15 @@ class CityEpidemic():
 
 
     def spider_Daily(self,place):
-        try:
-            if place == '中国':
-                url = 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_other'
-                r = requests.get(url=url, headers={
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'})
-                lis = eval(r.json()['data'])['chinaDayList']
-                for date in lis:
-                    self.dailyD.append("{}: confirm:{} heal:{} dead:{}".format(date['date'], date['confirm'], date['heal'],date['dead']))
-            else:
-                try:  # 城市
-                    province = place
-                    url = 'https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province={}&'.format(province)
-                    self.main_process(url, place)
-                except:  # 省份
-                    p = place.split('-')
-                    province, city = p[0], p[1]
-                    url = 'https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province={}&city={}&'.format(province, city)
-                    self.main_process(url, place)
-
-        except:
-            print("输入有误或网络错误，请重试\n")
+        try:  # 城市
+            province = place
+            url = 'https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province={}&'.format(province)
+            self.main_process(url, place)
+        except:  # 省份
+            p = place.split('-')
+            province, city = p[0], p[1]
+            url = 'https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province={}&city={}&'.format(province,
+                                                                                                             city)
+            self.main_process(url, place)
 
 

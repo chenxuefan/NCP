@@ -31,6 +31,7 @@ class GUI(QWidget):
 
         # 窗体初始化
         self.setWindowTitle('NCP')
+        self.setWindowIcon(QIcon('./charts/logo.png'))  # 设置窗体标题图标
 
         # 各个控件初始化
         self.label1 = QLabel("请选择：")
@@ -63,8 +64,8 @@ class GUI(QWidget):
         mainLayout.addWidget(self.label2, 0, 2, 1, 1)
         mainLayout.addWidget(self.input, 0, 3, 1, 1)
         mainLayout.addWidget(self.btnSearch, 0, 4, 1, 1)
-        mainLayout.addWidget(self.text, 1, 0, 1, 5)
-        mainLayout.addWidget(self.chart, 1, 5, 1, 1)
+        mainLayout.addWidget(self.text, 1, 0, 5, 5)
+        mainLayout.addWidget(self.chart, 1, 5, 5, 5)
 
         self.setLayout(mainLayout)
         # self.setWindowOpacity(0.9)  # 设置窗口透明度
@@ -91,7 +92,7 @@ class GUI(QWidget):
             self.Text('正在制作疫情趋势图...')
             make_chart_echart(csvName='./tables/china.csv', chartName='china', titleName='国内') # 制作图表
             self.chart.setPixmap(QPixmap("./charts/china.png").scaled(780,500)) # 显示图表
-            self.Text('图片已存至本地(./charts/china.png)')
+            self.Text('图表已存至本地(./charts/china.png)')
 
         elif self.choice == "海外":
             self.Text('正在获取疫情数据...')
@@ -101,7 +102,7 @@ class GUI(QWidget):
             self.Text('正在制作疫情趋势图...')
             make_chart_echart(csvName='./tables/abroad.csv', chartName='abroad', titleName='海外') # 制作图表
             self.chart.setPixmap(QPixmap("./charts/abroad.png").scaled(780, 500)) # 显示图表
-            self.Text('图片已存至本地(./charts/abroad.png)')
+            self.Text('图表已存至本地(./charts/abroad.png)')
 
         elif self.choice == "全球":
             self.Text('正在获取疫情数据...')
@@ -113,7 +114,7 @@ class GUI(QWidget):
             self.Text('正在制作疫情趋势图...')
             make_chart_echart(csvName='./tables/global.csv', chartName='global', titleName='全球') # 制作图表
             self.chart.setPixmap(QPixmap("./charts/global.png").scaled(787, 500)) # 显示图表
-            self.Text('图片已存至本地(./charts/global.png)')
+            self.Text('图表已存至本地(./charts/global.png)')
 
 
     # 查询 - 获取输入框内容进行查询
@@ -121,19 +122,25 @@ class GUI(QWidget):
         self.keyword = self.input.text()
         print(self.keyword)
         try:
-            self.keyword = self.keyword.strip('-')
-            self.Text('正在获取疫情数据...')
-            C = CountryEpidemic()
-            C.spider_Daily(self.keyword)
-            dailyD = C.dailyD
-        except:
-            self.Text('正在获取疫情数据...')
-            C = CityEpidemic()
-            C.spider_Daily(self.keyword)
-            dailyD = C.dailyD
+            try:
+                self.keyword = self.keyword.strip('-')
+                self.Text('正在获取疫情数据...')
+                C = CountryEpidemic()
+                C.spider_Daily(self.keyword)
+                dailyD = C.dailyD
+            except:
+                self.Text('正在获取疫情数据...')
+                C = CityEpidemic()
+                C.spider_Daily(self.keyword)
+                dailyD = C.dailyD
 
-        for day in dailyD: self.Text( "{}: confirm:{} heal:{} dead:{} confirm_add:{}".format(day[0], day[1], day[2], day[3], day[4]),1)  # 输出数据到日志框
-        self.Text('正在制作疫情趋势图...')
-        make_chart_plt(csvName='{}{}{}'.format('./tables/', self.keyword, '.csv'), chartName=self.keyword)
-        self.chart.setPixmap(QPixmap("./charts/{}.png".format(self.keyword)).scaled(666, 500))  # 显示图表
-        self.Text('图片已存至本地(./charts/{}.png)'.format(self.keyword))
+            for day in dailyD: self.Text("{}: confirm:{} heal:{} dead:{} confirm_add:{}".format(day[0], day[1], day[2], day[3], day[4]),1)  # 输出数据到日志框
+            self.Text('正在制作疫情趋势图...')
+            make_chart_plt(csvName='{}{}{}'.format('./tables/', self.keyword, '.csv'), chartName=self.keyword)
+            self.chart.setPixmap(QPixmap("./charts/{}.png".format(self.keyword)).scaled(666, 500))  # 显示图表
+            self.Text('图表已存至本地(./charts/{}.png)'.format(self.keyword))
+
+        except:
+            self.Text('输入不合法，请重新输入')
+            self.Text('>>>输入格式<<<  \n查询国家：国家名称（如美国）\n查询省份：省份名称 (如湖北) \n查询城市：对应省份名称-城市名称 (如湖北-武汉) ')
+
