@@ -31,7 +31,11 @@
 
 ### 2.1 功能需求分析
 
+![ncp1](https://billie-s-album.oss-cn-beijing.aliyuncs.com/img/ncp1.png)
+
 ### 2.2 技术需求分析
+
+
 
 ### 2.3 API需求分析（来源：腾讯）
 
