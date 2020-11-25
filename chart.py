@@ -79,7 +79,7 @@ def make_chart_echart(csvName,chartName,titleName=''):  # pyechart
 
 
 def make_chart_plt(csvName,chartName):
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # windows 正常显示中文标签
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # windows 正常显示中文标签
     plt.rcParams["font.family"] = 'Arial Unicode MS'  # macos 正常显示中文标签
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
     # 变量此时的数据类型:<class 'numpy.ndarray'>
