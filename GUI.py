@@ -32,6 +32,7 @@ class GUI(QWidget):
         # 窗体初始化
         self.setWindowTitle('NCP')
         self.setWindowIcon(QIcon('./charts/logo.png'))  # 设置窗体标题图标
+        self.move(500,300)
 
         # 各个控件初始化
         self.label1 = QLabel("请选择：")
@@ -48,7 +49,7 @@ class GUI(QWidget):
         self.combo.addItem("全球")
         self.combo.activated[str].connect(self.onActivated)  # 设置关联函数
         self.chart.setScaledContents(True)
-        # self.chart.setFixedSize(780,500)
+        self.chart.setFixedSize(750,500)
         self.text.setFixedSize(500,500)
         self.btnSearch.clicked.connect(self.search)
 
@@ -64,8 +65,8 @@ class GUI(QWidget):
         mainLayout.addWidget(self.label2, 0, 2, 1, 1)
         mainLayout.addWidget(self.input, 0, 3, 1, 1)
         mainLayout.addWidget(self.btnSearch, 0, 4, 1, 1)
-        mainLayout.addWidget(self.text, 1, 0, 5, 5)
-        mainLayout.addWidget(self.chart, 1, 5, 5, 5)
+        mainLayout.addWidget(self.text, 1, 0, 1, 5)
+        mainLayout.addWidget(self.chart, 1, 5, 1, 1)
 
         self.setLayout(mainLayout)
         # self.setWindowOpacity(0.9)  # 设置窗口透明度
@@ -91,7 +92,7 @@ class GUI(QWidget):
             for day in C.dailyD: self.Text("{}: confirm:{} heal:{} dead:{}".format(day[0],day[1],day[2],day[3]),1) # 输出数据到日志框
             self.Text('正在制作疫情趋势图...')
             make_chart_echart(csvName='./tables/china.csv', chartName='china', titleName='国内') # 制作图表
-            self.chart.setPixmap(QPixmap("./charts/china.png").scaled(780,500)) # 显示图表
+            self.chart.setPixmap(QPixmap("./charts/china.png").scaled(787,500)) # 显示图表
             self.Text('图表已存至本地(./charts/china.png)')
 
         elif self.choice == "海外":
@@ -101,7 +102,7 @@ class GUI(QWidget):
             for day in A.dailyD: self.Text("{}: confirm:{} heal:{} dead:{}".format(day[0], day[1], day[2], day[3]),1) # 输出数据到日志框
             self.Text('正在制作疫情趋势图...')
             make_chart_echart(csvName='./tables/abroad.csv', chartName='abroad', titleName='海外') # 制作图表
-            self.chart.setPixmap(QPixmap("./charts/abroad.png").scaled(780, 500)) # 显示图表
+            self.chart.setPixmap(QPixmap("./charts/abroad.png").scaled(787, 500)) # 显示图表
             self.Text('图表已存至本地(./charts/abroad.png)')
 
         elif self.choice == "全球":
@@ -138,6 +139,7 @@ class GUI(QWidget):
             self.Text('正在制作疫情趋势图...')
             make_chart_plt(csvName='{}{}{}'.format('./tables/', self.keyword, '.csv'), chartName=self.keyword)
             self.chart.setPixmap(QPixmap("./charts/{}.png".format(self.keyword)).scaled(666, 500))  # 显示图表
+            # self.chart.setFixedSize(666,500)
             self.Text('图表已存至本地(./charts/{}.png)'.format(self.keyword))
 
         except:
