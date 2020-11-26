@@ -40,6 +40,7 @@ class GUI(QWidget):
         self.label2 = QLabel("或输入：")
         self.input = QLineEdit()  # 文本输入框
         self.btnSearch = QPushButton("查询")  # 查询按钮
+        self.label3 = QLabel() # 占位标签
         self.chart = QLabel()  # 图表显示框
         self.text = QTextBrowser()  # 日志框
 
@@ -65,8 +66,9 @@ class GUI(QWidget):
         mainLayout.addWidget(self.label2, 0, 2, 1, 1)
         mainLayout.addWidget(self.input, 0, 3, 1, 1)
         mainLayout.addWidget(self.btnSearch, 0, 4, 1, 1)
-        mainLayout.addWidget(self.text, 1, 0, 1, 5)
-        mainLayout.addWidget(self.chart, 1, 5, 1, 1)
+        # mainLayout.addWidget(self.label3, 0, 5, 5, 5)
+        mainLayout.addWidget(self.text, 1, 0, 5, 5)
+        mainLayout.addWidget(self.chart, 1, 5, 5, 5)
 
         self.setLayout(mainLayout)
         # self.setWindowOpacity(0.9)  # 设置窗口透明度
@@ -139,7 +141,6 @@ class GUI(QWidget):
             self.Text('正在制作疫情趋势图...')
             make_chart_plt(csvName='{}{}{}'.format('./tables/', self.keyword, '.csv'), chartName=self.keyword)
             self.chart.setPixmap(QPixmap("./charts/{}.png".format(self.keyword)).scaled(666, 500))  # 显示图表
-            # self.chart.setFixedSize(666,500)
             self.Text('图表已存至本地(./charts/{}.png)'.format(self.keyword))
 
         except:
