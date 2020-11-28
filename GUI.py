@@ -77,12 +77,10 @@ class GUI(QWidget):
     def Text(self,text,mode=0):
         if mode==0:
             self.text.append("[{}]{}".format(time.strftime('%H:%M:%S'),text))
-            PyQt5.QtWidgets.QApplication.processEvents()
-            PyQt5.QtWidgets.QApplication.processEvents()
         elif mode==1:
             self.text.append("{}".format(text))
-            PyQt5.QtWidgets.QApplication.processEvents()
-            PyQt5.QtWidgets.QApplication.processEvents()
+        PyQt5.QtWidgets.QApplication.processEvents()
+        PyQt5.QtWidgets.QApplication.processEvents()
 
     # 事件 - 获取下拉框的选择
     def onActivated(self, choice):

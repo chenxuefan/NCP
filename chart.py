@@ -132,5 +132,5 @@ def make_chart_plt(csvName,chartName):
     plt.suptitle(chartName+"疫情趋势图",y=1)#图表大标题,y为标题位置的偏移距离
     plt.title("@author:billie(数据来自腾讯)",loc='right', fontsize=8)#子图表标题
     plt.legend()  # 设置图例的前题是y指定了label
-    plt.savefig("./charts/{}.png".format(chartName),dpi=400,bbox_inches = 'tight')
+    plt.savefig("./charts/{}.png".format(chartName),dpi=1000,bbox_inches = 'tight')
     print('已制作plt图表!')

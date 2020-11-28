@@ -1,44 +1,115 @@
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
 # -*- coding: utf-8 -*-
+
 """
-@Author billie
-@Date 2020/11/25 3:20 上午
-@Describe 
+PyQt5 tutorial 
+
+In this example, we determine the event sender
+object.
+
+author: py40.com
+last edited: 2017年3月
 """
-# 导入，Qapplication，单行文本框，窗口
-from PyQt5.QtWidgets import QApplication, QLineEdit, QWidget
-# 导入文本校验器：整数校验器,浮点数校验器,正则校验器
-from PyQt5.QtGui import QIntValidator, QDoubleValidator, QRegExpValidator
-# 导入Qt正则模块
-from PyQt5.QtCore import QRegExp
 import sys
+from PyQt5.QtWidgets import (QMainWindow, QTextEdit,
+                             QAction, QFileDialog, QApplication)
+from PyQt5.QtGui import QIcon
 
 
-class lineEditDemo(QWidget):
-    def __init__(self, parent=None):
-        super(lineEditDemo, self).__init__(parent)
-        self.setWindowTitle('QLineEdit例子')
-        self.resize(300, 300)
+class Example(QMainWindow):
 
-        int_validato = QIntValidator(50, 100, self)  # 实例化整型验证器，并设置范围为50-100
-        int_le = QLineEdit(self)  # 整型文本框
-        int_le.setValidator(int_validato)  # 设置验证
-        int_le.move(50, 10)
+    def __init__(self):
+        super().__init__()
 
-        # 实例化浮点型验证器，并设置范围为-100到100，并精确2位小数
-        float_validato = QDoubleValidator(-100, 100, 2, self)
-        float_le = QLineEdit(self)  # 浮点文本框
-        float_le.setValidator(float_validato)  # 设置验证
-        float_le.move(50, 50)
+        self.initUI()
 
-        re = QRegExp('[a-zA-Z0-9]+$')  # 正则:只允许出现的大小写字母和数字
-        re_validato = QRegExpValidator(re, self)  # 实例化正则验证器
-        re_le = QLineEdit(self)  # 正则文本框
-        re_le.setValidator(re_validato)  # 设置验证
-        re_le.move(50, 90)
+    def initUI(self):
+        self.textEdit = QTextEdit()
+        self.setCentralWidget(self.textEdit)
+        self.statusBar()
+
+        openFile = QAction(QIcon('open.png'), 'Open', self)
+        openFile.setShortcut('Ctrl+O')
+        openFile.setStatusTip('Open new File')
+        openFile.triggered.connect(self.showDialog)
+
+        menubar = self.menuBar()
+        fileMenu = menubar.addMenu('&File')
+        fileMenu.addAction(openFile)
+
+        self.setGeometry(300, 300, 350, 300)
+        self.setWindowTitle('File dialog')
+        self.show()
+
+    def showDialog(self):
+        fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')
+
+        if fname[0]:
+            f = open(fname[0], 'r')
+
+            with f:
+                data = f.read()
+                self.textEdit.setText(data)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = lineEditDemo()
-    win.show()
+    ex = Example()
     sys.exit(app.exec_())
