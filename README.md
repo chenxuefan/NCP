@@ -4,8 +4,8 @@
 
 ### 1.1 如何使用？
 
-1. 使用命令`source ./venv/bin/activate`激活项目下的虚拟环境，即可运行
-2. 使用命令`pip install -r requirements.txt`安装依赖库
+1. 下载整个项目至本地，使用命令`source ./venv/bin/activate`激活项目下的虚拟环境，即可运行
+2. 在项目文件下使用命令`pip install -r requirements.txt`安装依赖库
 3. 配置[chromedriver](https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/list?modules=chinaDayList,chinaDayAddList,cityStatis,nowConfirmStatis,provinceCompare) 
 4. 运行项目下的`main.py`文件
 
