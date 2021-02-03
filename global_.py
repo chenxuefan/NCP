@@ -2,7 +2,8 @@
 """
 @Author billie
 @Date 2020/11/22 10:55 下午
-@Describe 
+@Describe
+通过合并海外疫情和国内疫情得到全球疫情数据
 """
 import numpy as np
 import pandas as pd

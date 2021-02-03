@@ -55,13 +55,15 @@ class AbroadEpidemic:
     def spider_Daily(self):
         DailyList=self.response.json()['data']['FAutoGlobalDailyList']
         for date in DailyList:
-            self.FAutoGlobalDailyList[date['date']]=\
+            # print(date)
+            self.FAutoGlobalDailyList[date['y']+'.'+date['date']]=\
                 [date['all']['confirm'],
                  date['all']['heal'],
                  date['all']['dead'],
                  ] #date['all']['newAddConfirm']
             self.dailyD.append([date['date'],date['all']['confirm'],date['all']['heal'],date['all']['dead']])
-        # print(self.FAutoGlobalDailyList)
+        print(self.FAutoGlobalDailyList)
+
         self.save_to_csv(index=self.FAutoGlobalDailyList.keys(),
                          columns=['confirm','heal','dead'],
                          data=self.FAutoGlobalDailyList.values(),
@@ -123,6 +125,7 @@ class AbroadEpidemic:
 
 
 # AbroadEpidemic().spider_Statis()
+# AbroadEpidemic().spider_Daily()
 # AbroadEpidemic().spider_ConfirmAdd()
 # AbroadEpidemic().spider_Continent()
 

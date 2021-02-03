@@ -2,7 +2,9 @@
 """
 @Author billie
 @Date 2020/11/21 12:00 下午
-@Describe 
+@Describe
+
+
 """
 from abroad import AbroadEpidemic
 from china import ChinaEpidemic
@@ -88,7 +90,7 @@ class GUI(QWidget):
         if self.choice == "国内":
             self.Text('正在获取疫情数据...')
             C = ChinaEpidemic()
-            C.spider_Daily() # 爬取国内疫情数据
+            C.spider_DXY() # 爬取国内疫情数据
             for day in C.dailyD: self.Text("{}: confirm:{} heal:{} dead:{}".format(day[0],day[1],day[2],day[3]),1) # 输出数据到日志框
             self.Text('正在制作疫情趋势图...')
             make_chart_echart(csvName='./tables/china.csv', chartName='china', titleName='国内') # 制作图表
@@ -107,7 +109,7 @@ class GUI(QWidget):
 
         elif self.choice == "全球":
             self.Text('正在获取疫情数据...')
-            ChinaEpidemic().spider_Daily() # 获取国内数据
+            ChinaEpidemic().spider_DXY() # 获取国内数据
             AbroadEpidemic().spider_Daily() # 获取海外数据
             A = GlobalEpidemic()
             A.combineAbroadAndChina() # 组合海外数据与国内数据
@@ -127,12 +129,12 @@ class GUI(QWidget):
                 self.keyword = self.keyword.strip('-')
                 self.Text('正在获取疫情数据...')
                 C = CountryEpidemic()
-                C.spider_Daily(self.keyword)
+                C.spider(self.keyword)
                 dailyD = C.dailyD
             except:
                 self.Text('正在获取疫情数据...')
                 C = CityEpidemic()
-                C.spider_Daily(self.keyword)
+                C.spider(self.keyword)
                 dailyD = C.dailyD
 
             for day in dailyD: self.Text("{}: confirm:{} heal:{} dead:{} confirm_add:{}".format(day[0], day[1], day[2], day[3], day[4]),1)  # 输出数据到日志框
@@ -145,3 +147,8 @@ class GUI(QWidget):
             self.Text('输入不合法，请重新输入')
             self.Text('>>>输入格式<<<  \n查询国家：国家名称（如美国）\n查询省份：省份名称 (如湖北) \n查询城市：对应省份名称-城市名称 (如湖北-武汉) ')
 
+if __name__ == '__main__':
+    app = PyQt5.QtWidgets.QApplication(sys.argv)
+    gui = GUI()
+    gui.show()
+    sys.exit(app.exec_())

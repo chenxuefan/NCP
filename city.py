@@ -13,16 +13,16 @@ class CityEpidemic():
 
     def main_process(self,url,place):
         r = requests.post(url,headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'})
-        for date in r.json()['data']: self.dailyD.append([date['date'], date['confirm'], date['heal'], date['dead'],date['confirm_add']])
+        for date in r.json()['data']: self.dailyD.append([date['year']+'.'+date['date'], date['confirm'], date['heal'], date['dead'],date['confirm_add']])
         # 保存到本地csv文件
-        index = [date['date'] for date in r.json()['data']]
+        index = [date['year']+'.'+date['date'] for date in r.json()['data']]
         columns = ['confirm', 'heal', 'dead', 'confirm_add']
         datalist = [[date['confirm'], date['heal'], date['dead'], date['confirm_add']] for date in r.json()['data']]
         df = pd.DataFrame(data=datalist, index=index, columns=columns)
         df.to_csv('./tables/' + place + '.csv', encoding='gbk')
 
 
-    def spider_Daily(self,place):
+    def spider(self,place):
         try:  # 城市
             province = place
             url = 'https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province={}&'.format(province)
@@ -34,4 +34,4 @@ class CityEpidemic():
                                                                                                              city)
             self.main_process(url, place)
 
-
+# CityEpidemic().spider('广东')

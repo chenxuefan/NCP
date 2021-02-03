@@ -8,9 +8,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pyecharts.charts import *
 from pyecharts import options as opts
-# from example.commons import Faker#pip install pyecharts==1.0
+# from example.commons import Faker #pip install pyecharts==1.0
 from pyecharts.render import make_snapshot
 from snapshot_selenium import snapshot
+
 def make_chart_echart(csvName,chartName,titleName=''):  # pyechart
     print('正在制作echarts图表...')
     (time, confirm, heal, dead) = np.loadtxt(csvName,
@@ -20,11 +21,13 @@ def make_chart_echart(csvName,chartName,titleName=''):  # pyechart
                                                     delimiter=',',
                                                     usecols=(0, 1, 2, 3),
                                                     unpack=True)
+    print(list(time))
     # 折线图表
     chart_Line = (
         Line()  # Bar()#init_opts=opts.InitOpts(theme=ThemeType.LIGHT)
             # x轴
-            .add_xaxis([i[-5:].lstrip('0') for i in list(time)]) # [::-1]列表反转
+            # .add_xaxis([i[-5:].lstrip('0') for i in list(time)]) # [::-1]列表反转
+            .add_xaxis(list(time)) # [::-1]列表反转
             # y轴
             .add_yaxis("confirm",
                        list(confirm),
@@ -76,8 +79,6 @@ def make_chart_echart(csvName,chartName,titleName=''):  # pyechart
 
     print('已制作echarts图表！')
 
-
-
 def make_chart_plt(csvName,chartName):
     plt.rcParams['font.sans-serif'] = ['SimHei']  # windows 正常显示中文标签
     plt.rcParams["font.family"] = 'Arial Unicode MS'  # macos 正常显示中文标签
@@ -89,7 +90,6 @@ def make_chart_plt(csvName,chartName):
         if confirm_add[i] == '':confirm_add[i] = 0
         else:pass
     date=[str(i).lstrip('0') for i in date]#处理时间，去掉月份第一位的0
-    # print(date)
     confirm_add=[float(i) for i in confirm_add]#类型转换成浮点数
     (confirm, heal, dead) = np.loadtxt(csvName,
                                         skiprows=1,
@@ -104,13 +104,16 @@ def make_chart_plt(csvName,chartName):
     plt.plot(date,confirm_add, linewidth=1, label="confirm_add")
     plt.grid()
     # x轴标注
-    plt.xticks(range(0,len(date),10))#以10天为间隔显示
+    # plt.xticks(range(0,len(date),10))#以10天为间隔显示
     months = {'1.01':'Jan','2.01':'Feb', '3.01':'Mar', '4.01':'Apr', '5.01':'May', '6.01':'June', '7.01':'July', '8.01':'Aug', '9.01':'Sept', '10.01':'Oct','11.01':'Nov','12.01':'Dec'}
     x,val = [],[]
-    for month in months.keys():
-        if month in date:
-            x.append(month)
-            val.append(months[month])
+    for day in date:
+        key = day[-5:].lstrip('0')
+        if key in months:
+            x.append(day)
+            val.append(months[key])
+    print(x)
+    print(val)
     plt.xticks(x,val)
     #----------很牛逼的一段算法----------
     if   int(confirm[-1])<10000: ticks=range(0,int(confirm[-1]),1000) #标注点的y坐标，以每 k为间隔
@@ -134,3 +137,5 @@ def make_chart_plt(csvName,chartName):
     plt.legend()  # 设置图例的前题是y指定了label
     plt.savefig("./charts/{}.png".format(chartName),dpi=1000,bbox_inches = 'tight')
     print('已制作plt图表!')
+
+
