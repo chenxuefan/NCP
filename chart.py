@@ -13,6 +13,7 @@ from pyecharts.render import make_snapshot
 from snapshot_selenium import snapshot
 
 def make_chart_echart(csvName,chartName,titleName=''):  # pyechart
+
     print('正在制作echarts图表...')
     (time, confirm, heal, dead) = np.loadtxt(csvName,
                                                     # encoding="",

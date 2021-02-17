@@ -125,19 +125,20 @@ class GUI(QWidget):
         self.keyword = self.input.text()
         print(self.keyword)
         try:
-            try:
+            self.Text('正在获取疫情数据...')
+            try: # 查询国家
                 self.keyword = self.keyword.strip('-')
-                self.Text('正在获取疫情数据...')
                 C = CountryEpidemic()
                 C.spider(self.keyword)
                 dailyD = C.dailyD
-            except:
-                self.Text('正在获取疫情数据...')
+                for day in dailyD: self.Text("{}: confirm:{} heal:{} dead:{} confirm_add:{}".format(day[0], day[1], day[2], day[3], day[4]),1)  # 输出数据到日志框
+            except: # 查询国内省份或城市
                 C = CityEpidemic()
                 C.spider(self.keyword)
                 dailyD = C.dailyD
+                for day in dailyD: self.Text("{}: confirm:{} heal:{} dead:{} confirm_add:{}".format(day[0], day[1], day[2], day[3], day[4]),1)  # 输出数据到日志框
 
-            for day in dailyD: self.Text("{}: confirm:{} heal:{} dead:{} confirm_add:{}".format(day[0], day[1], day[2], day[3], day[4]),1)  # 输出数据到日志框
+
             self.Text('正在制作疫情趋势图...')
             make_chart_plt(csvName='{}{}{}'.format('./tables/', self.keyword, '.csv'), chartName=self.keyword)
             self.chart.setPixmap(QPixmap("./charts/{}.png".format(self.keyword)).scaled(666, 500))  # 显示图表

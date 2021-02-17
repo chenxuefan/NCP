@@ -11,6 +11,10 @@ from pyecharts.globals import ChartType,SymbolType,BMapType
 from pyecharts.faker import Faker
 
 def make_chart(data):
+    """
+    :param data: list of all country_confirm_num
+    :return:
+    """
     value = [i[1] for i in data]
     v = value.copy()
     v.remove(max(value))
@@ -47,6 +51,6 @@ def make_chart(data):
             )
     )
 
-    # c.width = '1800px'
-    # c.height = '800px'
+    c.width = '1800px'
+    c.height = '800px'
     c.render("./templates/map.html")

@@ -34,10 +34,8 @@ def main_process(url,place):
             df.to_csv('./tables/' + place + '.csv', encoding='gbk')
             # 制作图表
             make_chart_plt(csvName='{}{}{}'.format('tables/', place, '.csv'),
-                           chartPath='charts/',
                            chartName=place)
             make_chart_echart(csvName='{}{}{}'.format('tables/', place, '.csv'),
-                              chartPath='html/',
                               chartName=place,
                               titleName=place)
         else:
@@ -63,6 +61,7 @@ def China_search():
             try:
                 province,city=p[0],p[1]
                 url='https://api.inews.qq.com/newsqa/v1/query/pubished/daily/list?province={}&city={}&'.format(province,city)
+                print(url)
                 main_process(url,place)
                 # except:print("抱歉，暂无此地区的数据。\n")
             except:
