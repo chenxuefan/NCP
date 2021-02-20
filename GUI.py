@@ -104,7 +104,7 @@ class GUI(QWidget):
             for day in A.dailyD: self.Text("{}: confirm:{} heal:{} dead:{}".format(day[0], day[1], day[2], day[3]),1) # 输出数据到日志框
             self.Text('正在制作疫情趋势图...')
             make_chart_echart(csvName='./tables/abroad.csv', chartName='abroad', titleName='海外') # 制作图表
-            self.chart.setPixmap(QPixmap("./charts/abroad.png").scaled(787, 500)) # 显示图表
+            self.chart.setPixmap(QPixmap("./charts/abroad.png").scaled(787, 500)) #保存图表
             self.Text('图表已存至本地(./charts/abroad.png)')
 
         elif self.choice == "全球":
@@ -112,11 +112,11 @@ class GUI(QWidget):
             ChinaEpidemic().spider_DXY() # 获取国内数据
             AbroadEpidemic().spider_Daily() # 获取海外数据
             A = GlobalEpidemic()
-            A.combineAbroadAndChina() # 组合海外数据与国内数据
+            A.combine() # 组合海外数据与国内数据
             for day in A.dailyD: self.Text("{}: confirm:{} heal:{} dead:{}".format(day[0], day[1], day[2], day[3]),1) # 输出数据到日志框
             self.Text('正在制作疫情趋势图...')
             make_chart_echart(csvName='./tables/global.csv', chartName='global', titleName='全球') # 制作图表
-            self.chart.setPixmap(QPixmap("./charts/global.png").scaled(787, 500)) # 显示图表
+            self.chart.setPixmap(QPixmap("./charts/global.png").scaled(787, 500)) # 保存图表
             self.Text('图表已存至本地(./charts/global.png)')
 
 

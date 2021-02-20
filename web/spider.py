@@ -24,8 +24,8 @@ def get_all_country_name(): # 获取所有国家的名称
 
 def parser(ch,en): # 处理
     """
-    :param ch: Chinese name of country
-    :param en: English name of country
+    :param ch: string Chinese name of country
+    :param en: string English name of country
     :return:
     """
     try:

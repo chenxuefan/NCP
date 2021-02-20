@@ -51,6 +51,6 @@ def make_chart(data):
             )
     )
 
-    c.width = '1800px'
+    c.width = '1900px'
     c.height = '800px'
     c.render("./templates/map.html")
