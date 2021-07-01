@@ -110,7 +110,7 @@ def make_chart_plt(csvName,chartName):
     x,val = [],[]
     for day in date:
         key = day[-5:].lstrip('0')
-        if key in months:
+        if key in months.keys():
             x.append(day)
             val.append(months[key])
     print(x)

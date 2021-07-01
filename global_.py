@@ -3,7 +3,7 @@
 @Author billie
 @Date 2020/11/22 10:55 下午
 @Describe
-通过合并海外疫情和国内疫情得到全球疫情数据
+ - 通过合并海外疫情和国内疫情，得到全球疫情数据
 """
 import numpy as np
 import pandas as pd
@@ -34,7 +34,7 @@ class GlobalEpidemic():
             ls = []
             for i in range(3):
                 try: ls.append(int(dict_of_China[day][i])+int(dict_of_Abroad[day][i]))
-                except: ls.append(int(dict_of_China[day][i])) # 1.28之前只有国内的数据
+                except: ls.append(int(dict_of_China[day][i])) # 1.28之前只有国内的数据，没有海外的数据
             dict_of_global[day] = ls
 
         for date in dict_of_global: self.dailyD.append([date]+dict_of_global[date])
@@ -105,11 +105,11 @@ class GlobalEpidemic():
                 except Exception as e:
                     print(e)
 
-        print(len(data),data[-1])
-        print(len(index), len(data), len(columns))
+        # print(len(data),data[-1])
+        # print(len(index), len(data), len(columns))
         df = pd.DataFrame(index=index, data=data, columns=columns)
         df.to_csv('./tables/{}.csv'.format('global'), encoding='gbk')
-        print(df)
+        # print(df)
 
 # a = GlobalEpidemic()
 # a.combine()

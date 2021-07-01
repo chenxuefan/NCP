@@ -77,7 +77,7 @@ class GUI(QWidget):
 
     # 日志文本
     def Text(self,text,mode=0):
-        if mode==0:
+        if   mode==0:
             self.text.append("[{}]{}".format(time.strftime('%H:%M:%S'),text))
         elif mode==1:
             self.text.append("{}".format(text))
@@ -146,7 +146,7 @@ class GUI(QWidget):
 
         except:
             self.Text('输入不合法，请重新输入')
-            self.Text('>>>输入格式<<<  \n查询国家：国家名称（如美国）\n查询省份：省份名称 (如湖北) \n查询城市：对应省份名称-城市名称 (如湖北-武汉) ')
+            self.Text('>>>输入格式<<<  \n查询国家：国家名称（如美国）\n查询省份：省份名称（如湖北） \n查询城市：对应省份名称-城市名称（如湖北-武汉）')
 
 if __name__ == '__main__':
     app = PyQt5.QtWidgets.QApplication(sys.argv)

@@ -14,8 +14,21 @@ if __name__ == '__main__':
 
     @app.route('/')
     def hello_world():
+        return 'Hello world!'
+
+    @app.route('/now')
+    def Now():
         make_chart(data=get_now_country_data())
         return render_template('map.html')
+
+    @app.route('/process')
+    def Process():
+        return render_template('map.html')
+
+    @app.route('/async')
+    def Async():
+        return render_template('map.html')
+
 
     app.run(port=3006)
 

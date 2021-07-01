@@ -11,9 +11,10 @@
 - api(丁香园)：
     - https://file1.dxycdn.com/2020/1118/091/3894308898877218443-135.json
     - https://file1.dxycdn.com/2021/0203/371/5531818974268142643-135.json?t=26872025
+    - https://ncov.dxy.cn/ncovh5/view/pneumonia?scene=2&clicktime=1579582238&enterid=1579582238&from=timeline&isappinstalled=0
     - 太难了
 
-2021.02.03 更换api
+2021.02.03 更换数据来源api（丁香园）
 """
 import time
 import re
@@ -25,9 +26,7 @@ class ChinaEpidemic:
     def __init__(self):
         self.api_TC = 'https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/list?modules=chinaDayList'
         self.api_DXY = self.get_api()
-        self.headers = {
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36'
-        }
+        self.headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36'}
         self.dailyD = []
 
     def get_api(self):
@@ -91,4 +90,4 @@ class ChinaEpidemic:
 
 
 
-ChinaEpidemic().spider_DXY()
+# ChinaEpidemic().spider_DXY()
