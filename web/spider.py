@@ -149,4 +149,4 @@ if __name__ == '__main__':
     # Process_get_all_country_data()
     Async_get_all_country_data()
     end = time.time()
-    print(end-start)
+    print(f'共耗时：{end-start} s')
